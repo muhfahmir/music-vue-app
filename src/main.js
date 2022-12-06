@@ -10,6 +10,9 @@ import "./assets/main.css";
 // validatio with veevalidate
 import VeeValidatePlugin from "./includes/validation";
 
+// backend using firebase db
+import "./includes/firebase";
+
 const app = createApp(App);
 
 // register plugin
