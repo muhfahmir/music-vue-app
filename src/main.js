@@ -11,13 +11,18 @@ import "./assets/main.css";
 import VeeValidatePlugin from "./includes/validation";
 
 // backend using firebase db
-import "./includes/firebase";
+import { auth } from "./includes/firebase";
+let app;
 
-const app = createApp(App);
+auth.onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App);
 
-// register plugin
-app.use(createPinia());
-app.use(router);
-app.use(VeeValidatePlugin);
+    // register plugin
+    app.use(createPinia());
+    app.use(router);
+    app.use(VeeValidatePlugin);
 
-app.mount("#app");
+    app.mount("#app");
+  }
+});
