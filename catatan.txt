@@ -3,3 +3,4 @@ Vue3 dengan
 state management pinia
 tailwindcss and postcss
 firebase
+vue-router for routing

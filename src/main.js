@@ -12,6 +12,7 @@ import VeeValidatePlugin from "./includes/validation";
 
 // backend using firebase db
 import { auth } from "./includes/firebase";
+
 let app;
 
 auth.onAuthStateChanged(() => {
