@@ -31,10 +31,7 @@
               >
             </li>
             <li>
-              <a
-                class="px-2 text-white"
-                href="#"
-                @click.prevent="userStore.signOut"
+              <a class="px-2 text-white" href="#" @click.prevent="signOut"
                 >Logout</a
               >
             </li>
@@ -61,6 +58,12 @@ export default {
       // pinia access with mapstores
       this.modalStore.isOpen = !this.modalStore.isOpen;
       console.log(this.modalStore.isOpen);
+    },
+    signOut() {
+      this.userStore.signOut();
+      if (this.$route.name == "manage") {
+        this.$router.push({ name: "home" });
+      }
     },
   },
 };

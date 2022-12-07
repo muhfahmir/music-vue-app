@@ -17,8 +17,14 @@ const routes = [
   },
   {
     name: "manage",
+    // alias: "/manage",
     path: "/manage-music",
     component: Manage,
+    beforeEnter: (to, from, next) => {
+      console.log("Manage Route Guard");
+
+      next();
+    },
   },
   {
     path: "/manage",
@@ -34,6 +40,13 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   linkExactActiveClass: "text-yellow-500",
+});
+
+// guard / middleware to check use can acces that routes or not
+router.beforeEach((to, from, next) => {
+  console.log("Global Guard");
+
+  next();
 });
 
 export default router;
