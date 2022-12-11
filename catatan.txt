@@ -2,5 +2,7 @@ Teknologi yang digunakan
 Vue3 dengan
 state management pinia
 tailwindcss and postcss
-firebase
+firebase:
+- firestore db u/ simpan data
+- storage
 vue-router for routing
