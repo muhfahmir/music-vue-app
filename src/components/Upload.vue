@@ -19,6 +19,8 @@
       >
         <h5>Drop your files here</h5>
       </div>
+      <!-- handle drag error -->
+      <input type="file" multiple @change="upload($event)" />
       <hr class="my-6" />
       <!-- Progess Bars -->
       <div class="mb-4" v-for="upload in uploads" :key="upload.name">
@@ -56,69 +58,76 @@ export default {
 
       //   const { files } = $event.dataTransfer;
       // convert object to array
-      const files = [...$event.dataTransfer.files];
+      const files = $event.dataTransfer
+        ? [...$event.dataTransfer.files]
+        : [...$event.target.files];
 
       files.forEach((file) => {
         if (file.type !== "audio/mpeg") {
           return;
         }
-        console.log("test");
-        try {
-          const storageRef = storage.ref(); //music-vue-4a3ee.appspot.com/
+        const storageRef = storage.ref(); //music-vue-4a3ee.appspot.com/
 
-          const songsRef = storageRef.child(`songs/${file.name}`); //music-vue-4a3ee.appspot.com/songs/example.mp3
-          const task = songsRef.put(file);
-          const uploadIndex =
-            this.uploads.push({
-              task,
-              current_progress: 0,
-              name: file.name,
-              variant: "bg-blue-400",
-              icon: "fas fa-spinner fa-spin",
-              text_class: "",
-            }) - 1;
-          task.on(
-            "state_changed",
-            (snapshot) => {
-              const progress =
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              this.uploads[uploadIndex].current_progress = progress;
-            },
-            (error) => {
-              // error
-              this.uploads[uploadIndex].variant = "bg-red-400";
-              this.uploads[uploadIndex].icon = "fas fa-times";
-              this.uploads[uploadIndex].text_class = "text-red-400";
-              console.log("error :>> ", error);
-            },
-            async () => {
-              // success
-              const song = {
-                uid: auth.currentUser.uid,
-                display_name: auth.currentUser.displayName,
-                original_name: task.snapshot.ref.name,
-                modified_name: task.snapshot.ref.name,
-                genre: "",
-                comment_count: 0,
-              };
-              // get url file in storage firebase
-              song.url = await task.snapshot.ref.getDownloadURL();
+        const songsRef = storageRef.child(`songs/${file.name}`); //music-vue-4a3ee.appspot.com/songs/example.mp3
+        const task = songsRef.put(file);
+        const uploadIndex =
+          this.uploads.push({
+            task,
+            current_progress: 0,
+            name: file.name,
+            variant: "bg-blue-400",
+            icon: "fas fa-spinner fa-spin",
+            text_class: "",
+          }) - 1;
+        task.on(
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            this.uploads[uploadIndex].current_progress = progress;
+          },
+          (error) => {
+            // error
+            this.uploads[uploadIndex].variant = "bg-red-400";
+            this.uploads[uploadIndex].icon = "fas fa-times";
+            this.uploads[uploadIndex].text_class = "text-red-400";
+            console.log("error :>> ", error);
+          },
+          async () => {
+            // success
+            const song = {
+              uid: auth.currentUser.uid,
+              display_name: auth.currentUser.displayName,
+              original_name: task.snapshot.ref.name,
+              modified_name: task.snapshot.ref.name,
+              genre: "",
+              comment_count: 0,
+            };
+            // get url file in storage firebase
+            song.url = await task.snapshot.ref.getDownloadURL();
 
-              //   create song collection
-              await songsCollection.add(song);
+            //   create song collection
+            await songsCollection.add(song);
 
-              this.uploads[uploadIndex].variant = "bg-green-400";
-              this.uploads[uploadIndex].icon = "fas fa-check";
-              this.uploads[uploadIndex].text_class = "text-green-400";
-            }
-          );
-          console.log("sukses");
-        } catch (error) {
-          console.log(error);
-        }
+            this.uploads[uploadIndex].variant = "bg-green-400";
+            this.uploads[uploadIndex].icon = "fas fa-check";
+            this.uploads[uploadIndex].text_class = "text-green-400";
+          }
+        );
       });
       console.log("event drag:", files);
     },
+    cancelUploads() {
+      this.uploads.forEach((upload) => {
+        upload.task.cancel();
+      });
+    },
+  },
+  beforeUnmount() {
+    // cancel upload
+    this.uploads.forEach((upload) => {
+      upload.task.cancel();
+    });
   },
 };
 </script>
