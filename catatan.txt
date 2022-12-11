@@ -6,3 +6,4 @@ firebase:
 - firestore db u/ simpan data
 - storage
 vue-router for routing
+vee-validate for validation form

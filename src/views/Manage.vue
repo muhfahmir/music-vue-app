@@ -18,9 +18,12 @@
           <div class="p-6">
             <!-- Composition Items -->
             <composition-item
-              v-for="song in songs"
+              v-for="(song, i) in songs"
               :key="song.docID"
               :song="song"
+              :updateSong="updateSong"
+              :index="i"
+              :removeSong="removeSong"
             />
           </div>
         </div>
@@ -51,11 +54,20 @@ export default {
     snapshot.forEach((doc) => {
       const song = {
         ...doc.data(),
-        docId: doc.id,
+        docID: doc.id,
       };
-      console.log("song :>> ", song);
+
       this.songs.push(song);
     });
+  },
+  methods: {
+    updateSong(i, values) {
+      this.songs[i].modified_name = values.modified_name;
+      this.songs[i].genre = values.genre;
+    },
+    removeSong(i) {
+      this.songs.splice(i, 1);
+    },
   },
   // using ref cancel
   // beforeRouteLeave(to, from, next) {
