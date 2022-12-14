@@ -141,7 +141,7 @@ export default {
       createUser: "register",
     }),
     async register(values) {
-      console.log(values);
+      // console.log(values);
       this.reg_show_alert = true;
       this.reg_in_submission = true;
       this.reg_alert_variant = "bg-blue-500";
@@ -159,7 +159,7 @@ export default {
         return;
       }
 
-      console.log("user store:", this.userStore);
+      // console.log("user store:", this.userStore);
       // success callback
       this.reg_alert_variant = "bg-green-500";
       this.reg_alert_msg = "Success! Your account has been created.";

@@ -119,13 +119,13 @@ export default {
       this.alert_message = "Please wait! Updating song info.";
 
       try {
-        console.log("this.song :>> ", this.song);
+        // console.log("this.song :>> ", this.song);
         await songsCollection.doc(this.song.docID).update(values);
       } catch (error) {
         this.in_submission = false;
         this.alert_variant = "bg-red-500";
         this.alert_message = "Something went wrong! Try again later";
-        console.log("error", error);
+        // console.log("error", error);
         return;
       }
 

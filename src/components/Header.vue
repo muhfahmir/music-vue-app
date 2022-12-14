@@ -57,7 +57,7 @@ export default {
     toggleAuthModal() {
       // pinia access with mapstores
       this.modalStore.isOpen = !this.modalStore.isOpen;
-      console.log(this.modalStore.isOpen);
+      // console.log(this.modalStore.isOpen);
     },
     signOut() {
       this.userStore.signOut();

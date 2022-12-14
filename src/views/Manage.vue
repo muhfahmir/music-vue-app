@@ -64,7 +64,7 @@ export default {
       this.songs.splice(i, 1);
     },
     addSong(doc) {
-      console.log("doc :>> ", doc);
+      // console.log("doc :>> ", doc);
       const song = {
         ...doc.data(),
         docID: doc.id,

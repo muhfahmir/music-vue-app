@@ -24,7 +24,7 @@ const routes = [
     path: "/manage-music",
     component: Manage,
     beforeEnter: (to, from, next) => {
-      console.log("Manage Route Guard");
+      // console.log("Manage Route Guard");
 
       next();
     },
@@ -50,7 +50,7 @@ const router = createRouter({
 
 // guard / middleware to check use can acces that routes or not
 router.beforeEach((to, from, next) => {
-  console.log(to.meta);
+  // console.log(to.meta);
 
   if (!to.meta.requiresAuth) {
     next();

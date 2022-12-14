@@ -120,7 +120,7 @@ export default {
           }
         );
       });
-      console.log("event drag:", files);
+      // console.log("event drag:", files);
     },
     cancelUploads() {
       this.uploads.forEach((upload) => {
