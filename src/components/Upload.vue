@@ -67,6 +67,18 @@ export default {
         if (file.type !== "audio/mpeg") {
           return;
         }
+        // add check online
+        if (!navigator.onLine) {
+          this.uploads.push({
+            task: {},
+            current_progress: 100,
+            name: file.name,
+            variant: "bg-red-400",
+            icon: "fas fa-times",
+            text_class: "text-red-400",
+          });
+          return;
+        }
         const storageRef = storage.ref(); //music-vue-4a3ee.appspot.com/
 
         const songsRef = storageRef.child(`songs/${file.name}`); //music-vue-4a3ee.appspot.com/songs/example.mp3

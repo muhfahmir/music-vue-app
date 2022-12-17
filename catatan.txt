@@ -9,3 +9,9 @@ vue-router for routing
 vee-validate for validation form
 howler JS for playing audio music
 vue-i18n for translation apps (internasionalisation)
+PWA
+- Capable
+- Reliable
+- Installable
+vite-plugin-pwa for use PWA
+-> use Work Box to create service worker
