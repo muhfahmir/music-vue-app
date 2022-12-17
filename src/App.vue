@@ -1,15 +1,22 @@
 <template>
   <app-header />
 
-  <router-view></router-view>
+  <router-view v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <component :is="Component"></component>
+    </transition>
+  </router-view>
+
+  <!-- <router-view></router-view> -->
+
   <app-player />
 
-  <auth />
+  <auth-modal />
 </template>
 
 <script>
 import AppHeader from "@/components/Header.vue";
-import Auth from "@/components/Auth.vue";
+import AuthModal from "@/components/Auth.vue";
 
 // state management pinia
 import { mapWritableState } from "pinia";
@@ -21,7 +28,7 @@ export default {
   name: "App",
   components: {
     AppHeader,
-    Auth,
+    AuthModal,
     AppPlayer,
   },
   computed: {
@@ -34,3 +41,18 @@ export default {
   },
 };
 </script>
+
+<style>
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  transition: all 0.5s linear;
+}
+
+.fade-leave-to {
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+</style>
