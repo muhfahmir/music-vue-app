@@ -10,4 +10,18 @@ export default createI18n({
     en,
     id,
   },
+  numberFormats: {
+    en: {
+      currency: {
+        style: "currency",
+        currency: "USD",
+      },
+    },
+    ja: {
+      currency: {
+        style: "currency",
+        currency: "JPY",
+      },
+    },
+  },
 });

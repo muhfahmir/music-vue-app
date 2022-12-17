@@ -21,6 +21,9 @@
             {{ song.modified_name }}
           </div>
           <div>{{ song.genre }}</div>
+          <div class="song-price">
+            {{ $n(1, "currency", "ja") }}
+          </div>
         </div>
       </div>
     </section>

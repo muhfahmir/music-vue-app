@@ -1,5 +1,15 @@
 {
     "home": {
         "listen": "Dengarkan Musik Hebat!"
+    },
+    "song": {
+        "comment_count": "Tidak ada komentar| 1 komentar |{count} komentar"
+    },
+    "register": {
+        "accept": "Saya menyetujui Music's {0}",
+        "tos": "jangka waktu layanan"
+    },
+    "manage": {
+        "my_songs": "Lagu Saya"
     }
 }
