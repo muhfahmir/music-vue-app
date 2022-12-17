@@ -8,3 +8,4 @@ firebase:
 vue-router for routing
 vee-validate for validation form
 howler JS for playing audio music
+vue-i18n for translation apps (internasionalisation)
