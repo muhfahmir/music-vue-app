@@ -3,15 +3,15 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
+// validatio with veevalidate
+import VeeValidatePlugin from "./includes/validation";
+// backend using firebase db
+import { auth } from "./includes/firebase";
+// add icon with vdirective
+import Icon from "./directives/icon";
 
 import "./assets/base.css";
 import "./assets/main.css";
-
-// validatio with veevalidate
-import VeeValidatePlugin from "./includes/validation";
-
-// backend using firebase db
-import { auth } from "./includes/firebase";
 
 let app;
 
@@ -23,6 +23,7 @@ auth.onAuthStateChanged(() => {
     app.use(createPinia());
     app.use(router);
     app.use(VeeValidatePlugin);
+    app.directive("icon", Icon);
 
     app.mount("#app");
   }
