@@ -17,3 +17,5 @@ vite-plugin-pwa for use PWA
 -> use Work Box to create service worker
 lodash for name Component
 NProgress for loading
+code coverage from google to use chunks or not
+Rollup Plugin Visualizer for reduce bundle apps
