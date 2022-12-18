@@ -139,20 +139,25 @@ export default {
       });
     },
   },
-  async created() {
-    const docSnapshot = await songsCollection.doc(this.$route.params.id).get();
+  async beforeRouteEnter(to, from, next) {
+    // const docSnapshot = await songsCollection.doc(this.$route.params.id).get();
+    const docSnapshot = await songsCollection.doc(to.params.id).get();
 
-    if (!docSnapshot.exists) {
-      this.$router.push({ name: "home" });
-      return;
-    }
-    const { sort } = this.$route.query;
+    next((vm) => {
+      // component has been loaded
+      // vm means this on context
+      if (!docSnapshot.exists) {
+        vm.$router.push({ name: "home" });
+        return;
+      }
+      const { sort } = vm.$route.query;
 
-    this.sort = sort === "1" || sort === "2" ? sort : "1";
+      vm.sort = sort === "1" || sort === "2" ? sort : "1";
 
-    this.song = docSnapshot.data();
-    // get comment
-    this.getComments();
+      vm.song = docSnapshot.data();
+      // get comment
+      vm.getComments();
+    });
   },
   methods: {
     ...mapActions(usePlayerStore, ["newSong"]),
